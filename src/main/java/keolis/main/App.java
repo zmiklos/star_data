@@ -68,6 +68,6 @@ public class App
 		reseauStar.execute();
 		
         mongoClient.close();
-        logger.info("Durée : " + (long) ( System.currentTimeMillis() - start)/1000);
+        logger.info("Durée : " + (long) ( System.currentTimeMillis() - start)/1000 + " secondes");
     }
 }
