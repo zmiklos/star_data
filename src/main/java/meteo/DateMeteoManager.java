@@ -91,7 +91,7 @@ public class DateMeteoManager {
     public static Date getTodaysDate(Boolean pIsCurrentTime){
     	Calendar cal=Calendar.getInstance();
     	if(pIsCurrentTime==false){
-    		cal.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DATE),0,0,0);
+    		cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE), 0, 0, 0);
     	}
     	return cal.getTime();
     }

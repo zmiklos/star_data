@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import keolis.mongoDB.ClientMongoDB;
+import meteo.MeteoREST;
 
 import org.apache.http.HttpException;
 import org.apache.log4j.BasicConfigurator;
@@ -63,8 +64,9 @@ public class App
 		ClientREST clientREST = new ClientREST();
 		
 		/***  Recupération données Réseau Star ***/
+		MeteoREST meteoREST = new MeteoREST();
 		MainLigneAlert.mainLigneAlert();
-		ReseauStar reseauStar = new ReseauStar(clientREST, mongoClient);
+		ReseauStar reseauStar = new ReseauStar(clientREST, mongoClient, meteoREST);
 		reseauStar.execute();
 		
         mongoClient.close();

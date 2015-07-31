@@ -10,10 +10,12 @@ import org.apache.http.HttpException;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 public class MeteoREST{
+	private static Logger logger = Logger.getLogger("meteo.MeteoREST");
 	private URI domain ;
 
 	public MeteoREST() throws URISyntaxException {
@@ -29,10 +31,10 @@ public class MeteoREST{
 	public  JSONObject execute() throws URISyntaxException, HttpException, IOException{
 
 		String requeteHTTP = "";
-		HttpClient client = new DefaultHttpClient();
+		HttpClient client = HttpClientBuilder.create().build();
 		//construction de la requete 
 		requeteHTTP = this.getDomain().toString();
-		System.out.println(requeteHTTP);
+		logger.debug(requeteHTTP);
 		HttpGet request = new HttpGet(requeteHTTP);
 		HttpResponse response = client.execute(request);
 		BufferedReader br =  new BufferedReader (new InputStreamReader(response.getEntity().getContent()));
@@ -40,7 +42,5 @@ public class MeteoREST{
 		JSONObject jsonObject  = new JSONObject(jsonStringLine);
 		return jsonObject;
 	}
-
-
 
 }

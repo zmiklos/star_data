@@ -33,7 +33,7 @@ public class ArretBusLigneParser {
 		this.clientMongoDB = clientMongoDB;
 	}
 
-	public void execute(String route, String direction){
+	public void execute(String route, String direction, BasicDBObject dbObjectMeteo){
 
 		logger.info("Ligne : " + route + " Direction : " + direction);
 
@@ -58,6 +58,11 @@ public class ArretBusLigneParser {
 					//Ajout du champs travaux 
 					if(ligneAlerts != null && ligneAlerts.contains(basicDBObject.getString(LigneAttribut.LIGNE_ID)))
 						basicDBObject.append(ArretBusAttribut.TRAVAUX, "true");
+					
+					//insertion des donnees meteo
+					basicDBObject.append("temperature", dbObjectMeteo.get("temperature"));
+					basicDBObject.append("humidite", dbObjectMeteo.get("humidite"));
+					basicDBObject.append("meteo", dbObjectMeteo.get("meteo"));
 
 					this.clientMongoDB.insert(arretBusCollection, basicDBObject);
 				}

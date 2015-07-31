@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import keolis.mongoDB.ClientMongoDB;
+import meteo.MeteoREST;
 
 import org.apache.http.HttpException;
 import org.apache.log4j.BasicConfigurator;
@@ -21,7 +22,7 @@ public class TestReseauStar {
         BasicConfigurator.configure();
         Logger.getRootLogger().setLevel(Level.INFO); //will not show debug messages
         
-		ReseauStar reseauStar = new ReseauStar(new ClientREST(),ClientMongoDB.getInstance());
+		ReseauStar reseauStar = new ReseauStar(new ClientREST(), ClientMongoDB.getInstance(), new MeteoREST());
 		
 		reseauStar.execute();
 		logger.info("Durée : " + (long) ( System.currentTimeMillis() - start)/1000);

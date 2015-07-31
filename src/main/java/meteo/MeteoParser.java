@@ -22,7 +22,6 @@ public class MeteoParser {
 			tempEtEtat=json.getJSONObject("item").getJSONObject("condition");
 			temperature=tempEtEtat.getDouble("temp");
 			textEtat=tempEtEtat.getString("text");
-			
 		}
 		catch (Exception je){
 			je.getStackTrace();

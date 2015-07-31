@@ -10,11 +10,15 @@ import keolis.mongoDB.LigneParser;
 import keolis.util.Direction;
 import keolis.util.LigneAttribut;
 import keolis.util.NomCollectionMongoDB;
+import meteo.MeteoParser;
+import meteo.MeteoREST;
 
 import org.apache.http.HttpException;
+import org.json.JSONObject;
 
 import api.ClientREST;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
@@ -26,21 +30,26 @@ public class ReseauStar {
 	private ClientMongoDB clientMongoDB;
 	private ArretBusLigneParser arretBusLigneParser;
 	private String lignes[];
+	private MeteoREST meteoREST;
 
-	public ReseauStar(ClientREST clientREST, ClientMongoDB clientMongoDB) {
+	public ReseauStar(ClientREST clientREST, ClientMongoDB clientMongoDB, MeteoREST meteoREST) {
 		new MainArretBus(clientREST, clientMongoDB);
 		this.clientREST = clientREST;
 		this.clientMongoDB = clientMongoDB;
 		this.arretBusLigneParser = new ArretBusLigneParser(clientREST, clientMongoDB);
+		this.meteoREST=meteoREST;
 	}
 
 	public void execute() throws URISyntaxException, HttpException, IOException{
+		//recuperation des donnees meteo
+		JSONObject meteoJsonObject=meteoREST.execute();
+		BasicDBObject dbObjectMeteo=MeteoParser.parser(meteoJsonObject);
 		
 		this.lignes = ligneStar();
 		if(this.lignes != null){
 			for(int i = 0; i < this.lignes.length - 1; i++){
 				for(int k = 0; k < Direction.directions.length; k++){
-					this.arretBusLigneParser.execute(lignes[i], Direction.directions[k]);
+					this.arretBusLigneParser.execute(lignes[i], Direction.directions[k], dbObjectMeteo);
 				}
 			}
 		}
