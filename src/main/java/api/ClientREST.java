@@ -61,7 +61,7 @@ public class ClientREST {
 		HttpClient client = HttpClientBuilder.create().build();
 		//construction de la requete 
 		requeteHTTP = this.getDomain().toString() + getFormat()+ "/?key="+ getKey() + requete.getRequete();
-		logger.info(requeteHTTP);
+		logger.debug(requeteHTTP);
 		HttpGet request = new HttpGet(requeteHTTP);
 		HttpResponse response = client.execute(request);
 		BufferedReader br =  new BufferedReader (new InputStreamReader(response.getEntity().getContent()));
