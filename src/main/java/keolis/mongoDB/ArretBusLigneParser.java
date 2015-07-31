@@ -60,9 +60,9 @@ public class ArretBusLigneParser {
 						basicDBObject.append(ArretBusAttribut.TRAVAUX, "true");
 					
 					//insertion des donnees meteo
-					basicDBObject.append("temperature", dbObjectMeteo.get("temperature"));
-					basicDBObject.append("humidite", dbObjectMeteo.get("humidite"));
-					basicDBObject.append("meteo", dbObjectMeteo.get("meteo"));
+					basicDBObject.append("meteo", new BasicDBObject("temperature", dbObjectMeteo.get("temperature"))
+							.append("humidite", dbObjectMeteo.get("humidite"))
+							.append("description_meteo", dbObjectMeteo.get("meteo")));
 
 					this.clientMongoDB.insert(arretBusCollection, basicDBObject);
 				}
