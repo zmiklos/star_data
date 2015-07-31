@@ -3,7 +3,6 @@ package keolis.mongoDB;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -48,15 +47,7 @@ public class ArretBusLigneParser {
 			Collection<BasicDBObject> basicDBObjects = ArretBusParser.ligneParser(this.clientREST.execute());
 			this.clientMongoDB.setDB("star");
 			db = this.clientMongoDB.getDB();
-			
-			// retrieve current month and year
-			Calendar cal = Calendar.getInstance();
-			int year = cal.get(cal.YEAR);
-			int month = cal.get(cal.MONTH)+1; //zero-based
-			
-			// call ARRETBUS collection followed by current month+year
-			// if this collection exists it will be returned, else it will be created by the getCollection() call
-			DBCollection arretBusCollection = db.getCollection(NomCollectionMongoDB.ARRETBUS+"-"+month+"-"+year);
+			DBCollection arretBusCollection = db.getCollection(NomCollectionMongoDB.ARRETBUS);
 			if (basicDBObjects != null) {
 				Iterator<BasicDBObject> it = basicDBObjects.iterator();
 				//collection travaux
