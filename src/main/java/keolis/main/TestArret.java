@@ -6,7 +6,6 @@ import java.net.URISyntaxException;
 import keolis.api.RequeteArretBus;
 import keolis.mongoDB.ArretBusParser;
 import keolis.mongoDB.ClientMongoDB;
-import keolis.mongoDB.LigneParser;
 import keolis.util.ArretBusAttribut;
 
 import org.apache.http.HttpException;

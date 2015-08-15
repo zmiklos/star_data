@@ -12,7 +12,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 
 public class ClientMongoDB {
-	private static String host = "localhost";
+	//private static String host = "localhost";
 	private MongoClient mongoClient;
 	private DB db;
 	private static ClientMongoDB clientMongoDBstatic;
