@@ -64,6 +64,7 @@ public class Dezipping {
                     try {
                         final byte[] buf = new byte[8192];
                         int bytesRead;
+                        
                         while (-1 != (bytesRead = zis.read(buf)))
                             fos.write(buf, 0, bytesRead);
                     }
@@ -82,6 +83,7 @@ public class Dezipping {
             // fermeture de la ZipInputStream
             zis.close();
         }
+        zipfile.delete();
     }
     
 
